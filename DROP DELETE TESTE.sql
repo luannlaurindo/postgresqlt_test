@@ -1,0 +1,1 @@
+drop table colaborador_ENDERECO ;
