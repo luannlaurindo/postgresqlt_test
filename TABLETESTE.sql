@@ -13,22 +13,22 @@ create table COLABORADOR (
 	NM_PAI varchar not null,
 	DT_ADMISSAO DATE not null,
 	SALARIO bigint not null,
-	TIPO_DO_CONTRATO VARCHAR not null,
-	TIPO_TICKET varchar not null,
-	FL_VL_TRANSPORTE VARCHAR not null,
+	TIPO_DO_CONTRATO VARCHAR not null,--fk
+	TIPO_TICKET varchar not null,--fk
+	FL_VL_TRANSPORTE VARCHAR not null,--boolean
 	unique (CPF_OR_CNPJ)
 );
 
 
 create table TIPO_CONTRATO (
-	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
+	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),--colaborador que tem que ter essa chave
 	ID_TIPO_CONTRATO SERIAL primary key,
 	NOME_TIPO_CONTRATO varchar not null
 	
 	);
 
 create table TICKET (
-	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
+	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),--colaborador que tem que ter essa chave
 	ID_TICKET SERIAL primary key,
 	NOME_TICKET varchar not null
 );
@@ -54,10 +54,10 @@ ID_ENDERECO INT references ENDERECO(ID_ENDERECO)
 create table FORMACAO_ACADEMICA (
 	ID_FORMACAO SERIAL primary key,
 	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
-	ESCOLARIDADE VARCHAR not null,
+	ESCOLARIDADE VARCHAR not null,--outra tabela
 	INSTITUICAO VARCHAR not null,
-	CURSO VARCHAR not null,
-	ANO_CONCLUSAO VARCHAR not null
+	CURSO VARCHAR not null,--nulo
+	ANO_CONCLUSAO VARCHAR not NULL---nulo
 );
 
 create table DADOS_BANCARIOS (
@@ -85,6 +85,17 @@ create table CONTATO_EMERGENCIA (
 	
 	);
 
+--ALTERNATIVA PENSADA COM O LUCAS
+create table CONTATO (
+	ID_CONTATO serial primary key,
+	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
+	EMAIL varchar not null,
+	CELULAR varchar not null,
+	RESIDENCIAL varchar,
+  	NOME VARCHAR
+);
+
+
 create table DEPENDENTES (
 	ID_DEPENDENTES SERIAL primary key,
 	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
@@ -94,7 +105,7 @@ create table DEPENDENTES (
 	NOME_PAI VARCHAR not null,
 	EMAIL VARCHAR not null,
 	CPF VARCHAR (11) not null,
-	RELACAO_PARENTAL VARCHAR not null
+	RELACAO_PARENTAL VARCHAR not NULL---aqui contem a referencia do tipo de relacao
 );
 
 create table RELACAO_PARENTAL (
@@ -115,14 +126,14 @@ create table DEPARTAMENTO (
 create table EQUIPAMENTO (
 	ID_EQUIPAMENTO SERIAL primary key,
 	DATA_AQUISICAO DATE not null,
-	TIPO_EQUIPAMENTO VARCHAR not null
+	TIPO_EQUIPAMENTO VARCHAR not NULL--esse cara é fk
 
 );
 
 
 
 create table TIPO_EQUIPAMENTO (
-	ID_EQUIPAMENTO INT references EQUIPAMENTO(ID_EQUIPAMENTO),
+	ID_EQUIPAMENTO INT references EQUIPAMENTO(ID_EQUIPAMENTO),-- esse cara n fica aqui
 	ID_TIPO_EQUIPAMENTO SERIAL primary key,
 	NM_TP_EQUIPAMENTO VARCHAR not null,
 	FABRICANTE VARCHAR not null
@@ -140,18 +151,18 @@ create table FERIAS (
 	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
 	ID_FERIAS SERIAL primary key,
 	DT_SOLICITACAO DATE not null,
-	DT_APROVACAO DATE not null,
+	DT_APROVACAO DATE not null,--nulo
 	DT_INICIO DATE not null,
 	DT_FIM DATE not null,
-	QT_DIAS_ABONO INT not null,
+	QT_DIAS_ABONO INT not null,--nulo
 	FL_ANTECIPAR_13 BOOL not null,
-	JUSTIFICATIVA VARCHAR not NULL
+	JUSTIFICATIVA VARCHAR not NULL--nulo
 );
 
 create table HOLERITE (
 	ID_HOLERITE SERIAL primary key,
 	DT_REFERENCIA DATE not null,
-	TIPO_PAGAMENTO VARCHAR not null,
+	TIPO_PAGAMENTO VARCHAR not null,--outra tabela
 	ID_COLABORADOR INT references COLABORADOR(ID_COLABORADOR),
 	DESCONTO bigint not null,
 	VALOR bigint not NULL
