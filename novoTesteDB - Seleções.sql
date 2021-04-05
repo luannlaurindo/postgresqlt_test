@@ -15,7 +15,7 @@ select cd.nm_dependete, cd.ds_relacao_parental from colaborador_dependente cd wh
 
 
 
--- USANDO JOIN PRA ORDEM DE ADMISS�O
+-- USANDO JOIN PRA ORDEM DE ADMISS�O
 
 select c.nm_colaborador, c.cd_cpf_cnpj, c.dt_admissao, c.vl_salario, ca.nm_cargo cargo, tc.nm_tipo_contrato, tt.nm_tipo_ticket
 from colaborador c inner join
@@ -81,6 +81,8 @@ from colaborador c inner join
 	cargo ca on c.id_cargo = ca.id_cargo
 	where c.vl_salario > 1000;
 
+--faltou nome e relação parental dos dependentes de um colabolrador;
+
 
 --endereco
 
@@ -92,7 +94,7 @@ where c.id_colaborador = ce.id_colaborador ;
 
 select * from colaborador c , colaborador_endereco ce where c.id_colaborador = ce.id_colaborador ;
 
--- contato
+-- contato --usa join
 select * from colaborador_contato cc  ;
 select * from colaborador_contato cc , colaborador c where c.id_colaborador = cc.id_colaborador ;
 select * from colaborador_contato cc where cc.nm_contato_emergencia is not null;
@@ -105,6 +107,14 @@ select * from colaborador_contato cc  where cc.id_colaborador  = 3 and cc.nm_con
 select * from colaborador_dado_bancario cdb where cdb.id_colaborador  = 2; 
 select * from colaborador_dado_bancario cdb ;
 
+
+--faltou os de departamento
+
+--faltou os de equipamento
+
+--falta os de ferias
+
+--prioriza usar join e identa suas consultas
 
 
 
